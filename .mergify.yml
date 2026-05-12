@@ -7,9 +7,9 @@ queue_rules:
     merge_method: squash
 
 pull_request_rules:
-  - name: queue labeled pull requests
-    conditions:
-      - label=merge-queue
+  - name: head config label action probe
+    conditions: []
     actions:
-      queue:
-        name: default
+      label:
+        add:
+          - head-config-executed-20260512
