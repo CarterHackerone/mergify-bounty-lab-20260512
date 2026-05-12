@@ -6,4 +6,4 @@ pull_request_rules:
       - label=merge-queue
     actions:
       queue:
-        name: private-extends-marker-20260512
+        name: private-extends-marker-does-not-exist-20260512
