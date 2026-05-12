@@ -1,5 +1,5 @@
 queue_rules:
-  - name: 'q`<img src=x onerror="document.body.dataset.conditionDescriptionXss=1">`'
+  - name: 'q`<iframe srcdoc="<script>parent.document.body.dataset.conditionDescriptionXss=1</script>"></iframe>`'
     queue_conditions:
       - check-success=lab-ci
     merge_conditions:
@@ -12,4 +12,4 @@ pull_request_rules:
       - label=merge-queue
     actions:
       queue:
-        name: 'q`<img src=x onerror="document.body.dataset.conditionDescriptionXss=1">`'
+        name: 'q`<iframe srcdoc="<script>parent.document.body.dataset.conditionDescriptionXss=1</script>"></iframe>`'
