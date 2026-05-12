@@ -13,3 +13,9 @@ pull_request_rules:
     actions:
       queue:
         name: default
+  - name: template sandbox arithmetic probe
+    conditions:
+      - label=ssti-probe
+    actions:
+      comment:
+        message: "ssti-probe arithmetic={{ 7 * 7 }} author={{ author }}"
