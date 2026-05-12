@@ -5,7 +5,6 @@ queue_rules:
     merge_conditions:
       - check-success=lab-ci
     merge_method: squash
-    autoqueue: false
 
 pull_request_rules:
   - name: queue labeled pull requests
