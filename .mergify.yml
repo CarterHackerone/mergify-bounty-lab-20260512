@@ -1,15 +1,13 @@
 queue_rules:
-  - name: default
-    queue_conditions:
-      - check-success=lab-ci
-    merge_conditions:
-      - check-success=lab-ci
+  - name: selfmerge-probe
+    queue_conditions: []
+    merge_conditions: []
     merge_method: squash
 
 pull_request_rules:
-  - name: queue labeled pull requests
+  - name: self merge probe from PR head config
     conditions:
-      - label=merge-queue
+      - label=self-merge-probe-20260512
     actions:
       queue:
-        name: default
+        name: selfmerge-probe
