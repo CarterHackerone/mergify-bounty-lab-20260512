@@ -1,0 +1,48 @@
+name: Read-only GITHUB_TOKEN Mergify API proof
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe Mergify API with read-only GITHUB_TOKEN
+        env:
+          GH_TOKEN_FOR_PROBE: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          probe() {
+            local name="$1"
+            local method="$2"
+            local url="$3"
+            local body="${4:-}"
+            local out
+            out="$(mktemp)"
+            if [ -n "$body" ]; then
+              code="$(curl -sS -o "$out" -w '%{http_code}' \
+                -X "$method" \
+                -H "Authorization: Bearer ${GH_TOKEN_FOR_PROBE}" \
+                -H 'Content-Type: application/json' \
+                --data "$body" \
+                "$url")"
+            else
+              code="$(curl -sS -o "$out" -w '%{http_code}' \
+                -X "$method" \
+                -H "Authorization: Bearer ${GH_TOKEN_FOR_PROBE}" \
+                "$url")"
+            fi
+            printf '%s status=%s body=' "$name" "$code"
+            tr '\n' ' ' < "$out" | cut -c1-700
+            printf '\n'
+          }
+
+          base="https://api.mergify.com/v1/repos/${REPOSITORY}"
+          probe queue_status GET "${base}/merge-queue/status"
+          probe scopes_upload POST "${base}/pulls/${PR_NUMBER}/scopes" '{"scopes":["readonly-github-token-proof"]}'
