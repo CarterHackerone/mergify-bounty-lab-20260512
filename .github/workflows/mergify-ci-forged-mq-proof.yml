@@ -1,0 +1,27 @@
+name: mergify-ci-forged-mq-proof
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - id: refs
+        uses: Mergifyio/gha-mergify-ci@v17
+        with:
+          action: scopes-git-refs
+
+      - name: Show detected refs
+        run: |
+          echo "detected_base=${{ steps.refs.outputs.base }}"
+          echo "detected_head=${{ steps.refs.outputs.head }}"
+          echo "injected_output=${{ steps.refs.outputs.injected_output }}"
