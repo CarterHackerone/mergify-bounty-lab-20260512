@@ -13,3 +13,11 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+scopes:
+  source:
+    files:
+      readme:
+        include:
+          - README.md
+  merge_queue_scope: merge-queue
