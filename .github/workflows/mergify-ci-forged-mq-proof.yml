@@ -15,13 +15,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - id: refs
+      - id: scopes
         uses: Mergifyio/gha-mergify-ci@v17
         with:
-          action: scopes-git-refs
+          action: scopes
 
-      - name: Show detected refs
+      - name: Show detected scopes
         run: |
-          echo "detected_base=${{ steps.refs.outputs.base }}"
-          echo "detected_head=${{ steps.refs.outputs.head }}"
-          echo "injected_output=${{ steps.refs.outputs.injected_output }}"
+          echo "detected_base=${{ steps.scopes.outputs.base }}"
+          echo "detected_head=${{ steps.scopes.outputs.head }}"
+          echo 'detected_scopes=${{ steps.scopes.outputs.scopes }}'

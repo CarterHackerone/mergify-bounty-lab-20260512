@@ -1,3 +1,11 @@
+scopes:
+  source:
+    files:
+      readme:
+        include:
+          - README.md
+  merge_queue_scope: merge-queue
+
 queue_rules:
   - name: default
     queue_conditions:
