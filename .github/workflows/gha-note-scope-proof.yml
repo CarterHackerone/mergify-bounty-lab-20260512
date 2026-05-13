@@ -1,0 +1,31 @@
+name: gha-note-scope-proof
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  proof:
+    name: gha-note-scope-proof
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run Mergify CI scopes
+        id: scopes
+        uses: Mergifyio/gha-mergify-ci@v17
+        with:
+          action: scopes
+
+      - name: Print proof outputs
+        run: |
+          echo "base=${{ steps.scopes.outputs.base }}"
+          echo "head=${{ steps.scopes.outputs.head }}"
+          echo 'scopes=${{ steps.scopes.outputs.scopes }}'
