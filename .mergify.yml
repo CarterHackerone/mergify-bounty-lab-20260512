@@ -1,6 +1,6 @@
 queue_rules:
   - name: default
-    autoqueue: false
+    autoqueue: true
     queue_conditions:
       - check-success=lab-ci
     merge_conditions:
