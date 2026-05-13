@@ -1,8 +1,8 @@
 queue_rules:
   - name: default
-    queue_conditions:
+    routing_conditions:
       - check-success=lab-ci
-    merge_conditions:
+    conditions:
       - check-success=lab-ci
     merge_method: squash
 
